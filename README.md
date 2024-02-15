@@ -9,8 +9,6 @@ Teknisnya, program menggunakan Selenium untuk mengotomatisasi browser Chrome dan
 ## Tahapan Running
 Berikut adalah tahapan untuk menjalankan dan mendeploy aplikasi Streamlit yang Anda miliki:
 
-### Tahapan Running:
-
 1. **Install Dependensi:**
    Pastikan Anda telah menginstal semua dependensi yang diperlukan. Untuk menginstal Streamlit dan dependensinya, jalankan perintah berikut di terminal atau command prompt:
    ```
