@@ -1,4 +1,4 @@
-# Tokopedia-Scraper
+# Tokopedia Scraper menggunakan BeautifulSoup
 
 ## Tujuan Kode
 Tujuan dari kode ini adalah melakukan web scraping pada situs Tokopedia untuk mendapatkan informasi produk berdasarkan kata kunci tertentu. Pengguna diminta untuk memasukkan kata kunci produk yang ingin dicari dan jumlah halaman yang ingin di-scrape. Setelah itu, program akan melakukan scraping pada setiap halaman Tokopedia untuk mengumpulkan data produk seperti nama produk, URL gambar, penjual, lokasi penjual, harga normal, diskon (jika ada), harga diskon, rating produk, dan jumlah produk yang terjual.
