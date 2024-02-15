@@ -26,7 +26,7 @@ def main():
         # Tombol untuk mengunduh hasil sebagai CSV atau JSON
         if not df.empty:
             st.write("Download Data:")
-            st.write("Klik kanan pada tautan di bawah ini dan pilih 'Save link as...' untuk mengunduh file.")
+            st.write("Klik tautan di bawah ini untuk mengunduh file.")
             st.markdown(get_table_download_link(df, file_type='csv'), unsafe_allow_html=True)
             st.markdown(get_table_download_link(df, file_type='json'), unsafe_allow_html=True)
 
