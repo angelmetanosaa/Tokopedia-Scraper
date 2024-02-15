@@ -40,4 +40,4 @@ Untuk membuat dan mengaktifkan environment sebelum menginstal dependensi, Anda d
    ```
 
 4. **Gunakan Aplikasi:**
-   Setelah menjalankan perintah di atas, Anda akan melihat URL lokal yang bisa Anda buka di browser. Buka URL tersebut, dan Anda akan melihat antarmuka aplikasi Streamlit. Masukkan kata kunci produk dan jumlah halaman yang ingin Anda scraping, lalu klik tombol "Mulai Scraping". Tunggu beberapa saat dan jika sudah selesai maka Anda dapat download file tersebut dalam format JSON maupun CSV.
+   Setelah menjalankan perintah di atas, Anda akan melihat URL lokal yang bisa Anda buka di browser. Buka URL tersebut, dan Anda akan melihat antarmuka aplikasi Streamlit. Masukkan kata kunci produk dan jumlah halaman yang ingin Anda scraping, lalu klik tombol "Mulai Scraping". Tunggu beberapa saat dan jika sudah selesai maka Anda dapat mengunduh file tersebut dalam format JSON maupun CSV.
