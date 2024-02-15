@@ -41,13 +41,18 @@ class Scraper:
                     price_normal_element = item.find('div', class_='prd_label-product-slash-price css-xfl72w')
                     price_normal = price_normal_element.text.strip() if price_normal_element else ''
 
-                    # Scrap Harga Normal
+                    # Scrap Diskon
                     discount_element = item.find('div', class_='prd_badge-product-discount css-1xelcdh')
                     discount = discount_element.text.strip() if discount_element else ''
                     
                     # Scrap Harga Diskon
                     price_element = item.find('div', class_='prd_link-product-price css-h66vau')
-                    price_discout = price_element.text.strip() if price_element else ''
+                    price_discount = price_element.text.strip() if price_element else ''
+
+                    # Jika tidak ada diskon, pindahkan data dari kolom Harga Diskon ke kolom Harga Normal
+                    if not discount:
+                        price_normal = price_discount
+                        price_discount = ''
 
                     # Cek apakah ada rating atau tidak
                     rate_element = item.find('span', class_='prd_rating-average-text css-t70v7i')
@@ -70,11 +75,11 @@ class Scraper:
                             'URL Gambar': image_url,
                             'Penjual' : seller,
                             'Lokasi': location,
-                            'Harga Normal': price_normal,
+                            'Harga Normal': price_normal or '0',  # Jika tidak ada, isi dengan '0'
                             'Diskon': discount or '',  # Jika tidak ada diskon, nilai default adalah string kosong
-                            'Harga Diskon': price_discout,
-                            'Rate': rate,
-                            'Terjual': sold
+                            'Harga Diskon': price_discount or '0',  # Jika tidak ada, isi dengan '0'
+                            'Rate': rate or '0',  # Jika tidak ada, isi dengan '0'
+                            'Terjual': sold or '0'  # Jika tidak ada, isi dengan '0'
                         }
                     )
                 except AttributeError as e:
