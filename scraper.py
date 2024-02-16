@@ -1,3 +1,4 @@
+# Import library yang diperlukan
 import time
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
@@ -6,32 +7,42 @@ from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 import pandas as pd
 
+# Definisikan kelas Scraper
 class Scraper:
+    # Inisialisasi objek Scraper dengan WebDriver Chrome
     def __init__(self):
         self.driver = webdriver.Chrome()
     
+    # Metode untuk mendapatkan data dari Tokopedia
     def get_data(self, keyword, total_pages):
+        # URL dasar pencarian Tokopedia dengan kata kunci
         base_url = f'https://www.tokopedia.com/search?q={keyword}'
+        # Inisialisasi list kosong untuk menyimpan data hasil scraping
         data = []
 
+        # Looping melalui setiap halaman pencarian
         for page in range(1, total_pages + 1):
+            # URL halaman pencarian saat ini
             page_url = f'{base_url}&page={page}'
+            # Buka halaman pencarian menggunakan WebDriver
             self.driver.get(page_url)
             
+            # Tunggu hingga elemen dengan CSS selector '#zeus-root' muncul
             WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#zeus-root')))
+            # Tunggu 2 detik untuk memastikan halaman sepenuhnya dimuat
             time.sleep(2)
 
-            # Parse halaman
+            # Parse halaman menggunakan BeautifulSoup
             soup = BeautifulSoup(self.driver.page_source, 'html.parser')
 
-            # Scrap halaman website
+            # Scrap data produk dari halaman web
             for item in soup.find_all('div', class_='css-54k5sq'):
                 try:
                     # Scrap nama produk
                     product_name_element = item.find('div', class_='prd_link-product-name css-3um8ox')
                     product_name = product_name_element.text.strip() if product_name_element else ''
                     if not product_name:
-                        continue  # Melanjutkan ke iterasi berikutnya jika tidak ada nama produk
+                        continue  # Lewati iterasi ini jika tidak ada nama produk
 
                     # Scrap URL Gambar
                     image_element = item.find('div', class_='pcv3_img_container css-1mygogd')
@@ -69,6 +80,7 @@ class Scraper:
                     seller_element = item.find('span', class_='prd_link-shop-name css-1kdc32b flip')
                     seller = seller_element.text.strip() if seller_element else ''
 
+                    # Menambahkan data produk ke dalam list 'data'
                     data.append(
                         {
                             'Produk': product_name,
@@ -82,22 +94,32 @@ class Scraper:
                             'Terjual': sold or '0'  # Jika tidak ada, isi dengan '0'
                         }
                     )
-                except AttributeError as e:
-                    print(f"Error: {e}")
-                    continue  # Melanjutkan ke iterasi berikutnya jika terjadi AttributeError
+                except AttributeError as e:  # Tangani AttributeError yang mungkin terjadi saat menemukan elemen yang tidak diharapkan
+                    print(f"Error: {e}")  # Cetak pesan kesalahan
+                    continue  # Lanjutkan ke iterasi berikutnya jika terjadi AttributeError
 
+            # Tunggu 1 detik sebelum melanjutkan ke halaman berikutnya
             time.sleep(1)
 
+        # Tutup WebDriver setelah selesai scraping
         self.driver.close()
 
+        # Kembalikan data hasil scraping
         return data
 
+# Jalankan kode jika file ini dieksekusi langsung (bukan diimpor sebagai modul)
 if __name__ == '__main__':
+    # Masukkan keyword produk dari pengguna
     keyword = input("Masukkan keyword produk yang ingin Anda cari di Tokopedia: ")
+    # Masukkan jumlah halaman yang ingin di-scrape
     total_pages = int(input("Masukkan jumlah halaman yang ingin Anda scraping: "))
 
+    # Buat instance objek Scraper
     scraper = Scraper()
+    # Panggil method get_data untuk melakukan scraping
     data = scraper.get_data(keyword, total_pages)
     
+    # Konversi data menjadi DataFrame menggunakan pandas
     df = pd.DataFrame(data)
+    # Simpan DataFrame sebagai file CSV dengan nama 'dataset.csv'
     df.to_csv('dataset.csv', index=False)
