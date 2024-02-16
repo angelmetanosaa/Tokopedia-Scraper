@@ -8,7 +8,6 @@ Teknisnya, program menggunakan Selenium untuk mengotomatisasi browser Chrome dan
 
 ## Tahapan Running
 Berikut adalah tahapan untuk menjalankan dan mendeploy aplikasi Streamlit yang Anda miliki:
-Untuk membuat dan mengaktifkan environment sebelum menginstal dependensi, Anda dapat mengikuti langkah-langkah berikut menggunakan conda, sebuah package manager yang biasanya digunakan untuk mengelola environment di Python:
 
 1. **Membuat Environment:**
    Buka terminal atau command prompt, lalu jalankan perintah berikut untuk membuat environment baru dengan nama `tokopedia-scraper`:
